@@ -1,0 +1,7 @@
+migrations
+Pipfile
+Pipfile.lock
+app.py
+.idea/
+*.DS_Store
+README.md
