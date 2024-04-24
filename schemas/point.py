@@ -17,6 +17,12 @@ class PointResponse(BaseModel):
 
     @field_serializer('point')
     def serialize_point(self, value: str | WKBGeographyElement):
+        """
+        A function that serializes a point value into latitude and longitude.
+
+        :param value: Either a string covertable to WKBGeographyElement or a WKBGeographyElement.
+        :return: A dictionary containing the latitude and longitude values of the point.
+        """
         point = value
         if isinstance(value, str):
             point = WKBGeographyElement(value)

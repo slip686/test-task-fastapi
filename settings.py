@@ -19,6 +19,10 @@ class DBConfig(BaseSettings):
 
     @property
     def dsn(self):
+        """
+        A property method that generates a PostgreSQL DSN using user, password, host, port, and name.
+        Returns a formatted string representing the PostgreSQL DSN.
+        """
         return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
 
 
@@ -27,6 +31,9 @@ class Settings(BaseSettings):
 
 
 def get_settings():
+    """
+    Get the settings by instantiating a Settings object with the database configuration.
+    """
     return Settings(
         db=DBConfig()
     )

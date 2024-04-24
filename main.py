@@ -10,6 +10,8 @@ app.include_router(vehicle_router, tags=["vehicles"])
 
 @app.on_event("startup")
 async def on_startup():
+    """This code defines an event handler that runs the on_startup function when the FastAPI application starts up.
+    The function on_startup asynchronously creates the database tables by calling the init_models function."""
     await init_models()
 
 
