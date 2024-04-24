@@ -43,13 +43,13 @@ async def get_vehicle_points_by_vehicle_id(vehicle_id: int, db: AsyncSession = D
 
 
 @vehicle_router.get('/vehicles/{vehicle_id}/track')
-async def get_vehicle_track_by_vehicle_id(vehicle_id: int, db: AsyncSession = Depends(get_session)) -> dict:
+async def get_vehicle_track_by_vehicle_id(vehicle_id: int, db: AsyncSession = Depends(get_session)):
     while True:
         try:
             query = await db.execute(
                 select(TrackPointModel).filter_by(vehicle_id=vehicle_id).order_by(TrackPointModel.gps_time))
-            if query.scalars().all():
-                points = [PointResponse.model_validate(point) for point in query.scalars().all()]
+            points = [PointResponse.model_validate(point) for point in query.scalars().all()]
+            if points:
                 track = MultiPoint([tuple(point.serialize_point(value=point.point).values()) for point in points])
                 return track
             raise HTTPException(status_code=404, detail="Vehicle not found")
