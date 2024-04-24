@@ -43,7 +43,7 @@ async def get_vehicle_points_by_vehicle_id(vehicle_id: int, db: AsyncSession = D
 
 
 @vehicle_router.get('/vehicles/{vehicle_id}/track')
-async def get_vehicle_track_by_vehicle_id(vehicle_id: int, db: AsyncSession = Depends(get_session)):
+async def get_vehicle_track_by_vehicle_id(vehicle_id: int, db: AsyncSession = Depends(get_session)) -> dict:
     while True:
         try:
             query = await db.execute(
